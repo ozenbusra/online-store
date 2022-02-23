@@ -1,0 +1,17 @@
+<h1><%= @item.item_name %></h1>
+
+<p> Item ID: <%= @item.id %></p>
+
+<p> <% @store_items.each_with_index do |store_item, index| %> </p>
+  <li> Store Name: <%= @stores[index].store_name %></li>
+  <li> Price: <%= store_item.price %></li>
+  <li> Stock Quantity: <%= store_item.stock_quantity %></li>
+<% end %>
+
+<ul>
+  <li><%= link_to "Edit", edit_item_path(@item) %></li>
+  <li><%= link_to "Destroy", item_path(@item), data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  } %></li>
+</ul>
