@@ -1,0 +1,21 @@
+<%= form_with model: store do |form| %>
+  <div>
+    <%= form.label :store_name %><br>
+    <%= form.text_field :store_name %>
+    <% store.errors.full_messages_for(:store_name).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :location_id %><br>
+    <%= form.text_field :location_id %>
+    <% store.errors.full_messages_for(:location_id).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
