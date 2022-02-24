@@ -1,0 +1,25 @@
+<table class = "ui celled padded table">
+  <tr>
+    <th>Item Name</th>
+    <th>Store Name</th>
+    <th>Price</th>
+    <th>Stock Quantity</th>                        
+    <th>Action</th>                      
+  </tr>
+
+  <% @store_items.each do |store_item| %>
+    <tr>
+      <td><%= store_item.item.item_name %>
+      <td><%= store_item.store.store_name %>
+      <td><%= store_item.price %>
+      <td><%= store_item.stock_quantity %>
+      <td><%= link_to "Edit", edit_store_item_path(store_item) %></td>
+      <td><%= link_to "Destroy", store_item_path(store_item), data: {
+                      turbo_method: :delete,
+                      turbo_confirm: "Are you sure?"
+                      } %></td>           
+    </tr>
+  <% end %>
+ </table>
+
+<%=  pagy_semantic_nav(@pagy).html_safe %>

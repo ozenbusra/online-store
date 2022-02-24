@@ -1,0 +1,37 @@
+<%= form_with model: store_item do |form| %>
+  <div>
+    <%= form.label :item %><br>
+    <%= form.collection_select(:item_id, Item.all, :id, :item_name) %>
+    <% store_item.errors.full_messages_for(:item).each do |message| %>
+      <div><%= message %></div>
+    <% end %>  
+  </div>
+
+  <div>
+    <%= form.label :store %><br>
+    <%= form.collection_select(:store_id, Store.all, :id, :store_name) %>
+    <% store_item.errors.full_messages_for(:store).each do |message| %>
+      <div><%= message %></div>
+    <% end %>  
+  </div>
+
+  <div>
+    <%= form.label :price %><br>
+    <%= form.text_field :price %>
+    <% store_item.errors.full_messages_for(:price).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :stock_quantity %><br>
+    <%= form.text_field :stock_quantity %>
+    <% store_item.errors.full_messages_for(:stock_quantity).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

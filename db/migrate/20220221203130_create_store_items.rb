@@ -11,5 +11,7 @@ class CreateStoreItems < ActiveRecord::Migration[7.0]
     end
     
     add_index :store_items, [:store_id, :item_id], unique: true
+    add_foreign_key :store_items, :items, on_delete: :cascade
+    add_foreign_key :store_items, :stores, on_delete: :cascade
   end
 end
