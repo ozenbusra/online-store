@@ -1,21 +1,9 @@
 <h1><%= @store.store_name %></h1>
 
-<p> Store ID: <%= @store.id %></p>
-<li> Location: <%= @store.location.address %>,
-              <%= @store.location.street %>,
-              <%= @store.location.city %>,
-              <%= @store.location.country %></li>
+<p> Location: <%= @store.location.location_details %> </p>
 
-<p> <% @store_items.each_with_index do |store_item, index| %> </p>
-  <li> Item Name: <%= @items[index].item_name %></li>
-  <li> Price: <%= store_item.price %></li>
-  <li> Stock Quantity: <%= store_item.stock_quantity %></li>
-<% end %>
+<h2>Items</h1>
 
-<ul>
-  <li><%= link_to "Edit", edit_store_path(@store) %></li>
-  <li><%= link_to "Destroy", store_path(@store), data: {
-                    turbo_method: :delete,
-                    turbo_confirm: "Are you sure?"
-                  } %></li>
-</ul>
+<%= render :partial => 'shared/store_items_index', store_items: @store_items %>
+
+<p> <%= link_to "Add Item", new_store_item_path(store_id: @store.id) %> </p>

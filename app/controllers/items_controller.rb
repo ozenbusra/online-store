@@ -1,15 +1,11 @@
 class ItemsController < ApplicationController
   def index
-    @items = Item.all
+    @pagy, @items = pagy(Item.all)
   end
 
   def show
     @item = Item.find(params[:id])
-    @store_items = StoreItem.filter_by_item_id(params[:id])
-    @stores = []
-    @store_items.each do |store_item|
-      @stores << Store.find(store_item.store_id)
-    end
+    @pagy, @store_items = pagy(StoreItem.filter_by_item_id(params[:id]))
   end
 
   def new
