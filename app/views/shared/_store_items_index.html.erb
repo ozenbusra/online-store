@@ -3,8 +3,10 @@
     <th>Item Name</th>
     <th>Store Name</th>
     <th>Price</th>
-    <th>Stock Quantity</th>                        
-    <th>Action</th>                      
+    <th>Stock Quantity</th>
+    <% if current_user.admin? %>                        
+      <th>Action</th>
+    <% end %>                      
   </tr>
 
   <% @store_items.each do |store_item| %>
@@ -13,11 +15,13 @@
       <td><%= store_item.store.store_name %>
       <td><%= store_item.price %>
       <td><%= store_item.stock_quantity %>
-      <td><%= link_to "Edit", edit_store_item_path(store_item) %></td>
-      <td><%= link_to "Destroy", store_item_path(store_item), data: {
-                      turbo_method: :delete,
-                      turbo_confirm: "Are you sure?"
-                      } %></td>           
+      <% if current_user.admin? %>
+        <td><%= link_to "Edit", edit_store_item_path(store_item) %></td>
+        <td><%= link_to "Destroy", store_item_path(store_item), data: {
+                        turbo_method: :delete,
+                        turbo_confirm: "Are you sure?"
+                        } %></td>
+      <% end %>           
     </tr>
   <% end %>
  </table>

@@ -1,9 +1,13 @@
 <h1><%= @store.store_name %></h1>
+<p>Location: <%= @store.location.location_details %></p>
 
-<p> Location: <%= @store.location.location_details %> </p>
+<% if @store_items.exists? %>
+    <h2>Items</h1>
+    <%= render :partial => 'shared/store_items_index', store_items: @store_items %>
+<% else %>
+    <p>There is no existing item in this store</p>
+<% end %>
 
-<h2>Items</h1>
-
-<%= render :partial => 'shared/store_items_index', store_items: @store_items %>
-
-<p> <%= link_to "Add Item", new_store_item_path(store_id: @store.id) %> </p>
+<% if current_user.admin? %>
+    <p> <%= link_to "Add Item", new_store_item_path(store_id: @store.id) %> </p>
+<% end %>

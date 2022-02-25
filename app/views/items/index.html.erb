@@ -1,24 +1,35 @@
 <h1>Items</h1>
 
-<table class = "ui celled padded table">
-  <tr>
-    <th>Item Name </th>              
-    <th>Action </th>                      
-  </tr>
+<% if @items.exists? %>
+  <table class = "ui celled padded table">
+    <tr>
+      <th>Item Name </th>
+      <% if current_user.admin? %>              
+        <th>Action </th>
+      <% end %>                    
+    </tr>
 
-<% @items.each do |item| %>
-  <tr>
-    <td><%= link_to item.item_name, item %>
-    <td><%= link_to "Edit", edit_item_path(item) %></td>
-    <td><%= link_to "Destroy", item_path(item), data: {
-                    turbo_method: :delete,
-                    turbo_confirm: "Are you sure?"
-                    } %></td>           
-  </tr>
-  <% end %>
- </table>
+  <% @items.each do |item| %>
+    <tr>
+      <td><%= link_to item.item_name, item %>
+      <% if current_user.admin? %>              
+        <td><%= link_to "Edit", edit_item_path(item) %></td>
+        <td><%= link_to "Destroy", item_path(item), data: {
+                        turbo_method: :delete,
+                        turbo_confirm: "Are you sure?"
+                        } %></td>
+      <% end %>                 
+    </tr>
+    <% end %>
+  </table>
 
-<p> <%= link_to "Add Item", new_item_path %> </p>
+  <%= pagy_semantic_nav(@pagy).html_safe %>
+<% else %>
+  <p>There is no existing item</p>
+<% end %>
 
-<%=  pagy_semantic_nav(@pagy).html_safe %>
+<% if current_user.admin? %>
+  <p> <%= link_to "Add Item", new_item_path %> </p> 
+<% end %>
+
 

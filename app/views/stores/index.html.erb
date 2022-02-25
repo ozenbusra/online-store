@@ -1,26 +1,37 @@
 <h1>Stores</h1>
 
-<table class = "ui celled padded table">
-  <tr>
-    <th>Store Name </th>
-    <th>Location </th>            
-    <th>Action </th>                      
-  </tr>
+<% if @stores.exists? %>
+  <table class = "ui celled padded table">
+    <tr>
+      <th>Store Name </th>
+      <th>Location </th>
+      <% if current_user.admin? %>            
+        <th>Action </th>                      
+      <% end %>
+    </tr>
 
-<% @stores.each do |store| %>
-  <tr>
-    <td><%= link_to store.store_name, store %>
-    <td><%= store.location.location_details %></td>
-    <td><%= link_to "Edit", edit_store_path(store) %></td>
-    <td><%= link_to "Destroy", store_path(store), data: {
-                    turbo_method: :delete,
-                    turbo_confirm: "Are you sure?"
-                    } %></td>           
-  </tr>
-  <% end %>
- </table>
+  <% @stores.each do |store| %>
+    <tr>
+      <td><%= link_to store.store_name, store %>
+      <td><%= store.location.location_details %></td>
+      <% if current_user.admin? %>
+        <td><%= link_to "Edit", edit_store_path(store) %></td>
+        <td><%= link_to "Destroy", store_path(store), data: {
+                        turbo_method: :delete,
+                        turbo_confirm: "Are you sure?"
+                        } %></td>        
+      <% end %>   
+    </tr>
+    <% end %>
+  </table>
 
-<p> <%= link_to "Add Store", new_store_path %> </p>
+  <%=  pagy_semantic_nav(@pagy).html_safe %>
+<% else %>
+  <p>There is no existing store</p>
+<% end %>
 
-<%=  pagy_semantic_nav(@pagy).html_safe %>
+<% if current_user.admin? %>
+  <p> <%= link_to "Add Store", new_store_path %> </p>
+<% end %>
+
 
