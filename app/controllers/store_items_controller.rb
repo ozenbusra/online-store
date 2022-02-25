@@ -1,4 +1,6 @@
 class StoreItemsController < ApplicationController
+  before_action :authenticate_user! 
+  
   def index
     @pagy, @store_items = pagy(StoreItem.all)
   end
@@ -12,6 +14,7 @@ class StoreItemsController < ApplicationController
   end
 
   def create
+    authorize StoreItem
     @store_item = StoreItem.new(store_item_params)
     
     if @store_item.save
@@ -26,6 +29,7 @@ class StoreItemsController < ApplicationController
   end
 
   def update
+    authorize StoreItem
     @store_item = StoreItem.find(params[:id])
 
     if @store_item.update(store_item_params)
@@ -36,6 +40,7 @@ class StoreItemsController < ApplicationController
   end
 
   def destroy
+    authorize StoreItem
     @store_item = StoreItem.find(params[:id])
     @store_item.destroy
 

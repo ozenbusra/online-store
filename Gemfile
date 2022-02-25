@@ -75,3 +75,4 @@ gem 'pagy'
 gem 'semantic-ui-sass'
 
 gem 'devise'
+gem 'pundit'

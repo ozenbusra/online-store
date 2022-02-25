@@ -1,4 +1,6 @@
 class ItemsController < ApplicationController
+  before_action :authenticate_user! 
+  
   def index
     @pagy, @items = pagy(Item.all)
   end
@@ -13,8 +15,9 @@ class ItemsController < ApplicationController
   end
 
   def create
+    authorize Item
     @item = Item.new(item_params)
-    
+
     if @item.save
       redirect_to @item
     else
@@ -27,6 +30,7 @@ class ItemsController < ApplicationController
   end
 
   def update
+    authorize Item
     @item = Item.find(params[:id])
 
     if @item.update(item_params)
@@ -37,6 +41,7 @@ class ItemsController < ApplicationController
   end
 
   def destroy
+    authorize Item
     @item = Item.find(params[:id])
     @item.destroy
 
