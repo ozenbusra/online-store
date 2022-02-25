@@ -10,25 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_02_21_203304) do
-  create_table "favorite_items", force: :cascade do |t|
-    t.integer "item_id", null: false
-    t.integer "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["item_id"], name: "index_favorite_items_on_item_id"
-    t.index ["user_id"], name: "index_favorite_items_on_user_id"
-  end
-
-  create_table "favorite_stores", force: :cascade do |t|
-    t.integer "store_id", null: false
-    t.integer "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["store_id"], name: "index_favorite_stores_on_store_id"
-    t.index ["user_id"], name: "index_favorite_stores_on_user_id"
-  end
-
+ActiveRecord::Schema[7.0].define(version: 2022_02_25_113301) do
   create_table "items", force: :cascade do |t|
     t.string "item_name"
     t.datetime "created_at", null: false
@@ -71,21 +53,24 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_21_203304) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "user_name"
-    t.integer "role_id", null: false
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer "role_id", default: 1, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["role_id"], name: "index_users_on_role_id"
   end
 
-  add_foreign_key "favorite_items", "items"
-  add_foreign_key "favorite_items", "users"
-  add_foreign_key "favorite_stores", "stores"
-  add_foreign_key "favorite_stores", "users"
   add_foreign_key "store_items", "items"
   add_foreign_key "store_items", "items", on_delete: :cascade
   add_foreign_key "store_items", "stores"
   add_foreign_key "store_items", "stores", on_delete: :cascade
   add_foreign_key "stores", "locations"
   add_foreign_key "users", "roles"
+  add_foreign_key "users", "roles", on_delete: :cascade
 end

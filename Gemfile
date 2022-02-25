@@ -73,3 +73,5 @@ end
 
 gem 'pagy'
 gem 'semantic-ui-sass'
+
+gem 'devise'
