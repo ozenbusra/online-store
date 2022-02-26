@@ -2,15 +2,18 @@ class StoresController < ApplicationController
   before_action :authenticate_user! 
 
   def index
+    authorize Store
     @pagy, @stores = pagy(Store.all)
   end
 
   def show
+    authorize Store
     @store = Store.find(params[:id])
     @pagy, @store_items = pagy(StoreItem.filter_by_store_id(params[:id]))
   end
   
   def new
+    authorize Store
     @store = Store.new
   end
 
@@ -26,6 +29,7 @@ class StoresController < ApplicationController
   end
   
   def edit
+    authorize Store
     @store = Store.find(params[:id])
   end
 
