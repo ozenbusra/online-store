@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_02_25_113301) do
+ActiveRecord::Schema[7.0].define(version: 2022_02_26_162503) do
+  create_table "favorites", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "item_id"
+    t.integer "store_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_favorites_on_item_id"
+    t.index ["store_id"], name: "index_favorites_on_store_id"
+    t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
+
   create_table "items", force: :cascade do |t|
     t.string "item_name"
     t.datetime "created_at", null: false
@@ -66,6 +77,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_25_113301) do
     t.index ["role_id"], name: "index_users_on_role_id"
   end
 
+  add_foreign_key "favorites", "items"
+  add_foreign_key "favorites", "items", on_delete: :cascade
+  add_foreign_key "favorites", "stores"
+  add_foreign_key "favorites", "stores", on_delete: :cascade
+  add_foreign_key "favorites", "users"
+  add_foreign_key "favorites", "users", on_delete: :cascade
   add_foreign_key "store_items", "items"
   add_foreign_key "store_items", "items", on_delete: :cascade
   add_foreign_key "store_items", "stores"
