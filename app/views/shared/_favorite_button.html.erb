@@ -1,0 +1,9 @@
+    <% if favorite %>
+        <%= button_to api_favorite_path(favorite.id), onclick:"setTimeout(() => history.go(0), 500)", class:"button_to", method: "delete", remote: true do %>
+            <%= semantic_icon('star icon') %>
+        <% end %>
+    <% else %>
+        <%= button_to api_favorites_path, onclick:"setTimeout(() => history.go(0), 500)", class:"button_to", method: "post", remote: true, params: { item: item, store: store } do %>
+            <%= semantic_icon('star outline icon') %>
+        <% end %>
+    <% end %>

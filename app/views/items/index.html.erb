@@ -1,35 +1,41 @@
 <h1>Items</h1>
+<div>
+  <% if @items.exists? %>
+    <table class = "ui celled padded compact table">
+      <tr>
+        <th>Item Name </th>
+        <% if current_user.admin? %>              
+          <th>Action </th>
+        <% end %>                    
+      </tr>
 
-<% if @items.exists? %>
-  <table class = "ui celled padded table">
-    <tr>
-      <th>Item Name </th>
-      <% if current_user.admin? %>              
-        <th>Action </th>
-      <% end %>                    
-    </tr>
+    <% @items.each do |item| %>
+      <tr>
+        <td><%= link_to item.item_name, item %>
+        <%= render :partial => 'shared/favorite_button', locals: {favorite: (@favorites.filter_by_item_id(item.id)[0]), item: item, store: nil } %>
 
-  <% @items.each do |item| %>
-    <tr>
-      <td><%= link_to item.item_name, item %>
-      <% if current_user.admin? %>              
-        <td><%= link_to "Edit", edit_item_path(item) %></td>
-        <td><%= link_to "Destroy", item_path(item), data: {
-                        turbo_method: :delete,
-                        turbo_confirm: "Are you sure?"
-                        } %></td>
-      <% end %>                 
-    </tr>
-    <% end %>
-  </table>
+        <% if current_user.admin? %>              
+          <td><%= link_to "Edit", edit_item_path(item) %></td>
+          <td><%= link_to "Destroy", item_path(item), data: {
+                          turbo_method: :delete,
+                          turbo_confirm: "Are you sure?"
+                          } %></td>
+        <% end %>                 
+      </tr>
+      <% end %>
+    </table>
+    
+    <%= pagy_semantic_nav(@pagy).html_safe %>
+  <% else %>
+    <p>There is no existing item</p>
+  <% end %>
+</div>
 
-  <%= pagy_semantic_nav(@pagy).html_safe %>
-<% else %>
-  <p>There is no existing item</p>
-<% end %>
+<br/>
 
-<% if current_user.admin? %>
-  <p> <%= link_to "Add Item", new_item_path %> </p> 
-<% end %>
-
+<div>
+  <% if current_user.admin? %>
+    <p> <%= link_to "Add Item", new_item_path %> </p> 
+  <% end %>
+</div>
 

@@ -4,12 +4,14 @@ class StoresController < ApplicationController
   def index
     authorize Store
     @pagy, @stores = pagy(Store.all)
+    @favorites = Favorite.filter_by_user_id(current_user.id)
   end
 
   def show
     authorize Store
     @store = Store.find(params[:id])
     @pagy, @store_items = pagy(StoreItem.filter_by_store_id(params[:id]))
+    @favorite = Favorite.filter_by_user_id(current_user.id).filter_by_store_id(@store.id)[0]
   end
   
   def new

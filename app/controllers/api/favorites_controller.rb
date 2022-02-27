@@ -3,7 +3,7 @@ class Api::FavoritesController < Api::BaseApiController
 
   def index
     authorize Favorite
-    @pagy, @favorites = pagy(Favorite.all)
+    @pagy, @favorites = pagy(Favorite.filter_by_user_id(current_user.id))
     render json: { "data": @favorites, "pager": page_serializer(@pagy) }
   end
 
@@ -20,7 +20,7 @@ class Api::FavoritesController < Api::BaseApiController
 
   def create
     authorize Favorite
-    @favorite = Favorite.new(user: current_user, item_id: params[:item_id], store_id: params[:store_id])
+    @favorite = Favorite.new(user: current_user, item_id: params[:item], store_id: params[:store])
 
     if @favorite.save
       render json: { message: "Added to favorites successfully" }, status: 201

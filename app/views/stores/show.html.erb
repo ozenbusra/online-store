@@ -1,13 +1,20 @@
-<h1><%= @store.store_name %></h1>
-<p>Location: <%= @store.location.location_details %></p>
+<div>
+    <h1><%= @store.store_name %></h1>
+    <%= render :partial => 'shared/favorite_button', locals: { favorite: @favorite, item: nil, store: @store } %>
+    <p>Location: <%= @store.location.location_details %></p>
+</div>
 
-<% if @store_items.exists? %>
-    <h2>Items</h1>
-    <%= render :partial => 'shared/store_items_index', store_items: @store_items %>
-<% else %>
-    <p>There is no existing item in this store</p>
-<% end %>
+<br/>
 
-<% if current_user.admin? %>
-    <p> <%= link_to "Add Item", new_store_item_path(store_id: @store.id) %> </p>
-<% end %>
+<div>
+    <% if @store_items.exists? %>
+        <h2>Items</h1>
+        <%= render :partial => 'shared/store_items_index', locals: { store_items: @store_items } %>
+    <% else %>
+        <p>There is no existing item in this store</p>
+    <% end %>
+
+    <% if current_user.admin? %>
+        <p> <%= link_to "Add Item", new_store_item_path(store_id: @store.id) %> </p>
+    <% end %>
+</div>

@@ -4,12 +4,14 @@ class ItemsController < ApplicationController
   def index
     authorize Item
     @pagy, @items = pagy(Item.all)
+    @favorites = Favorite.filter_by_user_id(current_user.id)
   end
 
   def show
     authorize Item
     @item = Item.find(params[:id])
     @pagy, @store_items = pagy(StoreItem.filter_by_item_id(params[:id]))
+    @favorite = Favorite.filter_by_user_id(current_user.id).filter_by_item_id(@item.id)[0]
   end
 
   def new

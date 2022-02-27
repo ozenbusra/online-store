@@ -3,6 +3,6 @@ class FavoritesController < ApplicationController
 
   def index
     authorize Favorite
-    @pagy, @favorites = pagy(Favorite.all)
+    @pagy, @favorites = pagy(Favorite.filter_by_user_id(current_user.id))
   end
 end

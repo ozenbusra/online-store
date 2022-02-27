@@ -13,6 +13,8 @@
   <% @stores.each do |store| %>
     <tr>
       <td><%= link_to store.store_name, store %>
+      <%= render :partial => 'shared/favorite_button', locals: {favorite: (@favorites.filter_by_store_id(store.id)[0]), item: nil, store: store } %>
+
       <td><%= store.location.location_details %></td>
       <% if current_user.admin? %>
         <td><%= link_to "Edit", edit_store_path(store) %></td>

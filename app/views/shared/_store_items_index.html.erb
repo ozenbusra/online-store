@@ -9,7 +9,7 @@
     <% end %>                      
   </tr>
 
-  <% @store_items.each do |store_item| %>
+  <% store_items.each do |store_item| %>
     <tr>
       <td><%= store_item.item.item_name %>
       <td><%= store_item.store.store_name %>
