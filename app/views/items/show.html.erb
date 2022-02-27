@@ -1,11 +1,11 @@
 <div>
-  <h1><%= @item.item_name %></h1> 
   <%= render :partial => "shared/favorite_button",
              locals: {
                favorite: @favorite,
                item: @item,
                store: nil,
              } %>
+  <h1><%= @item.item_name %></h1> 
 </div>
 
 <br/>
