@@ -1,5 +1,5 @@
 class StoresController < ApplicationController
-  before_action :authenticate_user! 
+  before_action :authenticate_user!
 
   def index
     authorize Store
@@ -13,7 +13,7 @@ class StoresController < ApplicationController
     @pagy, @store_items = pagy(StoreItem.filter_by_store_id(params[:id]))
     @favorite = Favorite.filter_by_user_id(current_user.id).filter_by_store_id(@store.id)[0]
   end
-  
+
   def new
     authorize Store
     @store = Store.new
@@ -22,14 +22,14 @@ class StoresController < ApplicationController
   def create
     authorize Store
     @store = Store.new(store_params)
-    
+
     if @store.save
       redirect_to @store
     else
       render :new, status: :unprocessable_entity
     end
   end
-  
+
   def edit
     authorize Store
     @store = Store.find(params[:id])
@@ -51,11 +51,12 @@ class StoresController < ApplicationController
     @store = Store.find(params[:id])
     @store.destroy
 
-    redirect_to stores_path, status: :see_other 
+    redirect_to stores_path, status: :see_other
   end
 
   private
-    def store_params
-      params.require(:store).permit(:store_name, :location_id)
-    end
+
+  def store_params
+    params.require(:store).permit(:store_name, :location_id)
+  end
 end

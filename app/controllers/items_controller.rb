@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user! 
+  before_action :authenticate_user!
 
   def index
     authorize Item
@@ -29,7 +29,7 @@ class ItemsController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
-  
+
   def edit
     authorize Item
     @item = Item.find(params[:id])
@@ -51,11 +51,12 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
     @item.destroy
 
-    redirect_to items_path, status: :see_other 
+    redirect_to items_path, status: :see_other
   end
 
   private
-    def item_params
-      params.require(:item).permit(:item_name)
-    end
+
+  def item_params
+    params.require(:item).permit(:item_name)
+  end
 end

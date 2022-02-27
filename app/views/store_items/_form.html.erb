@@ -7,6 +7,8 @@
     <% end %>  
   </div>
 
+  <br/>
+
   <div>
     <%= form.label :store %><br>
     <%= form.collection_select(:store_id, Store.all, :id, :store_name) %>
@@ -14,6 +16,8 @@
       <div><%= message %></div>
     <% end %>  
   </div>
+
+  <br/>
 
   <div>
     <%= form.label :price %><br>
@@ -23,6 +27,8 @@
     <% end %>
   </div>
 
+  <br/>
+
   <div>
     <%= form.label :stock_quantity %><br>
     <%= form.text_field :stock_quantity %>
@@ -30,6 +36,8 @@
       <div><%= message %></div>
     <% end %>
   </div>
+
+  <br/>
 
   <div>
     <%= form.submit %>

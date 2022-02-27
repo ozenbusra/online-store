@@ -1,39 +1,49 @@
 <h1>Stores</h1>
 
-<% if @stores.exists? %>
-  <table class = "ui celled padded table">
-    <tr>
-      <th>Store Name </th>
-      <th>Location </th>
-      <% if current_user.admin? %>            
-        <th>Action </th>                      
+<div>
+  <% if @stores.exists? %>
+    <table class = "ui celled padded compact table">
+      <tr>
+        <th>Store Name </th>
+        <th>Location </th>
+        <% if current_user.admin? %>            
+          <th>Action </th>                      
+        <% end %>
+      </tr>
+
+    <% @stores.each do |store| %>
+      <tr>
+        <td><%= link_to store.store_name, store %>
+        <%= render :partial => "shared/favorite_button",
+                   locals: {
+                     favorite: (@favorites.filter_by_store_id(store.id)[0]),
+                     item: nil,
+                     store: store,
+                   } %></td>
+
+        <td><%= store.location.location_details %></td>
+        <% if current_user.admin? %>
+          <td><%= link_to "Edit", edit_store_path(store) %></td>
+          <td><%= link_to "Destroy", store_path(store), data: {
+                                                          turbo_method: :delete,
+                                                          turbo_confirm: "Are you sure?",
+                                                        } %></td>        
+        <% end %>   
+      </tr>
       <% end %>
-    </tr>
+    </table>
 
-  <% @stores.each do |store| %>
-    <tr>
-      <td><%= link_to store.store_name, store %>
-      <%= render :partial => 'shared/favorite_button', locals: {favorite: (@favorites.filter_by_store_id(store.id)[0]), item: nil, store: store } %>
+    <%= pagy_semantic_nav(@pagy).html_safe %>
+  <% else %>
+    <p>There is no existing store</p>
+  <% end %>
+</div>
 
-      <td><%= store.location.location_details %></td>
-      <% if current_user.admin? %>
-        <td><%= link_to "Edit", edit_store_path(store) %></td>
-        <td><%= link_to "Destroy", store_path(store), data: {
-                        turbo_method: :delete,
-                        turbo_confirm: "Are you sure?"
-                        } %></td>        
-      <% end %>   
-    </tr>
-    <% end %>
-  </table>
+<br/>
 
-  <%=  pagy_semantic_nav(@pagy).html_safe %>
-<% else %>
-  <p>There is no existing store</p>
-<% end %>
-
-<% if current_user.admin? %>
-  <p> <%= link_to "Add Store", new_store_path %> </p>
-<% end %>
-
+<div>
+  <% if current_user.admin? %>
+    <p> <%= link_to "Add Store", new_store_path %> </p>
+  <% end %>
+</div>
 

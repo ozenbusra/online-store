@@ -7,6 +7,8 @@
     <% end %>
   </div>
 
+  <br/>
+
   <div>
     <%= form.label :location %><br>
     <%= form.collection_select(:location_id, Location.all, :id, :location_details) %>
@@ -14,6 +16,8 @@
       <div><%= message %></div>
     <% end %>  
   </div>
+
+  <br/>
 
   <div>
     <%= form.submit %>
