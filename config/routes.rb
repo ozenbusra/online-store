@@ -8,4 +8,9 @@ Rails.application.routes.draw do
   resources :items
   resources :stores
   resources :store_items
+  resources :favorites
+
+  namespace :api do
+    resources :favorites
+  end
 end
