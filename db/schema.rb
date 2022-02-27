@@ -19,6 +19,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_26_162503) do
     t.datetime "updated_at", null: false
     t.index ["item_id"], name: "index_favorites_on_item_id"
     t.index ["store_id"], name: "index_favorites_on_store_id"
+    t.index ["user_id", "item_id"], name: "index_favorites_on_user_id_and_item_id", unique: true
+    t.index ["user_id", "store_id"], name: "index_favorites_on_user_id_and_store_id", unique: true
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
@@ -26,6 +28,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_26_162503) do
     t.string "item_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["item_name"], name: "index_items_on_item_name", unique: true
   end
 
   create_table "locations", force: :cascade do |t|
@@ -35,12 +38,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_26_162503) do
     t.string "country"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["address"], name: "index_locations_on_address", unique: true
   end
 
   create_table "roles", force: :cascade do |t|
     t.string "role_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["role_name"], name: "index_roles_on_role_name", unique: true
   end
 
   create_table "store_items", force: :cascade do |t|
@@ -61,6 +66,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_26_162503) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["location_id"], name: "index_stores_on_location_id"
+    t.index ["store_name"], name: "index_stores_on_store_name", unique: true
   end
 
   create_table "users", force: :cascade do |t|

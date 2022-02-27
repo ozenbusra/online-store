@@ -8,5 +8,7 @@ class CreateLocations < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+
+    add_index :locations, :address, unique: true
   end
 end

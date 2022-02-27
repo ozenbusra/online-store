@@ -6,5 +6,7 @@ class CreateStores < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+
+    add_index :stores, :store_name, unique: true
   end
 end
