@@ -1,16 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <p class="navbar-text float-right">
-  <% if user_signed_in? %>
-    Logged in as <strong><%= current_user.email %></strong>.
-    <%= link_to "Edit profile", edit_user_registration_path, :class => "navbar-link" %> |
-    <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => "navbar-link" %>
-  <% else %>
-    <%= link_to "Sign up", new_user_registration_path, :class => "navbar-link" %> |
-    <%= link_to "Login", new_user_session_path, :class => "navbar-link" %>
-  <% end %>
-  </p>
-
   <head>
     <title>OnlineStore</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -22,13 +11,32 @@
   </head>
 
   <body>
-    <% if notice %>
-      <p class="alert alert-success"><%= notice %></p>
-    <% end %>
-    <% if alert %>
-      <p class="alert alert-danger"><%= alert %></p>
-    <% end %>
+    <div class="ui thin left sidebar visible inverted vertical menu">
+      <%= link_to "Item List", items_path, class: "item" %>
+      <%= link_to "Store List", stores_path, class: "item" %>
+      <%= link_to "Store Item List", store_items_path, class: "item" %>
+      <%= link_to "Favorite List", favorites_path, class: "item" %>
+    </div>
+    <div class="dimmed pusher">
+      <p class="navbar-text float-right">
+        <% if user_signed_in? %>
+          Logged in as <strong><%= current_user.email %></strong>.
+          <%= link_to "Edit profile", edit_user_registration_path, :class => "navbar-link" %> |
+          <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => "navbar-link" %>
+        <% else %>
+          <%= link_to "Sign up", new_user_registration_path, :class => "navbar-link" %> |
+          <%= link_to "Login", new_user_session_path, :class => "navbar-link" %>
+        <% end %>
+      </p>
 
-    <%= yield %>
+      <% if notice %>
+        <p class="alert alert-success"><%= notice %></p>
+      <% end %>
+      <% if alert %>
+        <p class="alert alert-danger"><%= alert %></p>
+      <% end %>
+
+      <%= yield %>
+    </div>
   </body>
 </html>
