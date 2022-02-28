@@ -83,17 +83,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_26_162503) do
     t.index ["role_id"], name: "index_users_on_role_id"
   end
 
-  add_foreign_key "favorites", "items"
   add_foreign_key "favorites", "items", on_delete: :cascade
-  add_foreign_key "favorites", "stores"
   add_foreign_key "favorites", "stores", on_delete: :cascade
-  add_foreign_key "favorites", "users"
   add_foreign_key "favorites", "users", on_delete: :cascade
-  add_foreign_key "store_items", "items"
   add_foreign_key "store_items", "items", on_delete: :cascade
-  add_foreign_key "store_items", "stores"
   add_foreign_key "store_items", "stores", on_delete: :cascade
   add_foreign_key "stores", "locations"
-  add_foreign_key "users", "roles"
   add_foreign_key "users", "roles", on_delete: :cascade
 end
