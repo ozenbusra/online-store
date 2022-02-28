@@ -12,10 +12,21 @@
 
   <body>
     <div class="ui thin left sidebar visible inverted vertical menu">
-      <%= link_to "Item List", items_path, class: "item" %>
-      <%= link_to "Store List", stores_path, class: "item" %>
-      <%= link_to "Store Item List", store_items_path, class: "item" %>
-      <%= link_to "Favorite List", favorites_path, class: "item" %>
+      <%= link_to root_path, class: "item" do %>
+        <i class="home icon"></i> Home
+      <% end %>
+      <%= link_to items_path, class: "item" do %>
+        <i class="shopping basket icon"></i> Item List
+      <% end %>
+      <%= link_to stores_path, class: "item" do %>
+        <i class="building outline icon"></i> Store List
+      <% end %>
+      <%= link_to store_items_path, class: "item" do %>
+        <i class="tags icon"></i> Store Item List
+      <% end %>
+      <%= link_to favorites_path, class: "item" do %>
+        <i class="star icon"></i> Favorite List
+      <% end %>
     </div>
     <div class="dimmed pusher">
       <p class="navbar-text float-right">
