@@ -11,10 +11,24 @@
       <% @favorites.each do |favorite| %>
         <tr>
           <% if favorite.item_id %>
-            <td><%= link_to favorite.item.item_name, favorite.item %></td>
+            <td><%= link_to favorite.item.item_name, favorite.item %>
+                <%= render :partial => "shared/favorite_button",
+                           locals: {
+                             favorite: favorite,
+                             item: favorite.item,
+                             store: nil,
+                           } %>
+            </td>
             <td><%= Item %></td>
           <% elsif favorite.store_id %>
-            <td><%= link_to favorite.store.store_name, favorite.store %></td>
+            <td><%= link_to favorite.store.store_name, favorite.store %>
+                <%= render :partial => "shared/favorite_button",
+                           locals: {
+                             favorite: favorite,
+                             item: nil,
+                             store: favorite.store,
+                           } %>
+            </td>
             <td><%= Store %></td>
           <% end %>
         </tr>
